@@ -1,12 +1,14 @@
 import { ADDPRODUCT } from "./actionTypes";
 
-export const addProduct = (name, category, imageUrl, price, quantity) => {
+export const addProduct = (data) => {
+  // console.log(data);
+  const {pname, category, imageurl, price, quantity} = data;
   return {
     type: ADDPRODUCT,
     payload: {
-      name,
+      pname,
       category,
-      imageUrl,
+      imageurl,
       price,
       quantity,
     },
