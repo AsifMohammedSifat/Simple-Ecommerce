@@ -8,7 +8,7 @@ export const cartReducer = (state = initialStates, action) => {
         if (item.id == action.payload) {
           return {
             ...item,
-            quantity: item.quantity + 1,
+            productQuantity: item.productQuantity + 1,
           };
         } else return item;
       });
@@ -18,13 +18,13 @@ export const cartReducer = (state = initialStates, action) => {
         if (item.id == action.payload) {
           return {
             ...item,
-            quantity: item.quantity - 1,
+            productQuantity: item.productQuantity - 1,
           };
         } else return item;
       });
 
     case ADDTOCART:
-      return [...state, ...action.payload];
+      return [...state, action.payload];
 
     case DELETE:
       return state.filter((item) => item.id != action.payload);

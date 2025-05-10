@@ -1,9 +1,27 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/cart/action";
+import { decreaseItem } from "../redux/product/actions";
 
 const Products = () => {
   const products = useSelector((state) => state.product);
+  const cart = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
   // console.log(products);
+
+  const handleAddToCart = (id, name, category, imageurl, price, quantity) => {
+    if (quantity >= 1) {
+      const alreadyInCart = cart.find((item) => item.pname === name);
+      if (alreadyInCart) alert("Item already in cart");
+      else {
+        dispatch(addToCart(id, name, category, imageurl, price, quantity));
+        dispatch(decreaseItem(id));
+      }
+    } else {
+      alert("Product is not available. Sorry!");
+    }
+  };
 
   return (
     <div>
@@ -31,7 +49,21 @@ const Products = () => {
                       <span className="lws-quantity">{product.quantity}</span>
                     </p>
                   </div>
-                  <button className="lws-btnAddToCart">Add To Cart</button>
+                  <button
+                    className="lws-btnAddToCart"
+                    onClick={() =>
+                      handleAddToCart(
+                        product.id,
+                        product.pname,
+                        product.category,
+                        product.imageurl,
+                        product.price,
+                        product.quantity
+                      )
+                    }
+                  >
+                    Add To Cart
+                  </button>
                 </div>
               </div>
             );
