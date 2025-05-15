@@ -32,5 +32,3 @@ export const productReducer = (state = initialStates, action) => {
       return state;
   }
 };
-
-// export default reducer;
